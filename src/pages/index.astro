@@ -1,0 +1,17 @@
+---
+import Shell from '../layouts/Shell.astro';
+---
+
+<Shell title="LLM Quiz" description="A bilingual recreational questionnaire about conversational preferences and model resemblance.">
+  <section class="home" aria-labelledby="home-title">
+    <h1 id="home-title">LLM Quiz · 大模型问卷</h1>
+    <p>Explore your conversational preferences and compare them with the quiz's model profiles. You can answer yourself or generate a prompt for a model, import its reply, and save a local result image.</p>
+    <p lang="zh-CN">探索你的对话偏好，与问卷中的模型画像作趣味比较。可以自己作答，也可以生成模型提示词、导入回复，并在本地保存结果图片。</p>
+    <nav aria-label="Choose questionnaire language / 选择问卷语言">
+      <a href="/fun/llm-quiz/" lang="en" hreflang="en">Start in English</a>
+      <a href="/zh/fun/llm-quiz/" lang="zh-CN" hreflang="zh-CN">开始中文问卷</a>
+    </nav>
+    <p>This is the v3.0 baseline. Similarity is not proof of model identity or a scientific personality assessment.</p>
+    <p lang="zh-CN">当前为 v3.0 基线。相似度不代表真实模型身份，也不是科学的人格测评。</p>
+  </section>
+</Shell>

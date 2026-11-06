@@ -1,0 +1,32 @@
+{
+  "name": "llmq",
+  "version": "3.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "npm run quiz:data && astro build",
+    "preview": "astro preview",
+    "quiz:data": "node --experimental-strip-types scripts/build-questions.mjs && node --experimental-strip-types scripts/validate-questions.mjs",
+    "test": "npm run quiz:data && node --experimental-strip-types --test tests/*.test.mjs worker/*.test.mjs",
+    "lint": "eslint .",
+    "quality": "astro check && npm run lint && npm test && npm run build"
+  },
+  "dependencies": {
+    "astro": "7.2.10"
+  },
+  "allowScripts": {
+    "esbuild": true
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.10",
+    "@eslint/js": "10.0.1",
+    "@typescript-eslint/parser": "8.71.0",
+    "eslint": "10.11.0",
+    "eslint-plugin-astro": "3.2.1",
+    "typescript": "6.0.3"
+  }
+}

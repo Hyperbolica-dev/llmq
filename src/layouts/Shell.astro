@@ -1,0 +1,39 @@
+---
+import '../styles/shell.css';
+import type { QuizLanguage } from '../lib/llmq/strings';
+
+interface Props {
+  title: string;
+  description: string;
+  language?: QuizLanguage;
+  noindex?: boolean;
+}
+const { title, description, language = 'en', noindex = false } = Astro.props;
+const chinese = language === 'zh-CN';
+---
+
+<!doctype html>
+<html lang={language}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex,nofollow" />}
+    <title>{title} · llmq</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">{chinese ? '跳至主要内容' : 'Skip to content'}</a>
+    <header class="site-header">
+      <a class="site-name" href="/" aria-label={chinese ? 'llmq 首页' : 'llmq home'}>llmq</a>
+      <nav aria-label={chinese ? '问卷语言' : 'Quiz language'}>
+        <a href="/fun/llm-quiz/" lang="en" hreflang="en" aria-current={Astro.url.pathname === '/fun/llm-quiz/' ? 'page' : undefined}>English</a>
+        <a href="/zh/fun/llm-quiz/" lang="zh-CN" hreflang="zh-CN" aria-current={Astro.url.pathname === '/zh/fun/llm-quiz/' ? 'page' : undefined}>简体中文</a>
+      </nav>
+    </header>
+    <main id="main" tabindex="-1"><slot /></main>
+    <footer class="site-footer">
+      <p>{chinese ? '娱乐性问卷，不是心理测评，也不能识别模型身份。' : 'A recreational questionnaire, not a psychological assessment or model-identity detector.'}</p>
+      <a href="/">{chinese ? '首页' : 'Home'}</a>
+    </footer>
+  </body>
+</html>

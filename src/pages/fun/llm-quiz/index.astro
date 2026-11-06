@@ -1,0 +1,11 @@
+---
+import Shell from '../../../layouts/Shell.astro';
+import Quiz from '../../../components/llmq/Quiz.astro';
+import { CONFIG } from '../../../lib/llmq/config';
+import { quizStrings } from '../../../lib/llmq/strings';
+const strings = quizStrings('en');
+---
+
+<Shell title={strings.title} description={strings.subtitle} noindex={!CONFIG.PUBLISHED}>
+  <Quiz />
+</Shell>

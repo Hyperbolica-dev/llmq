@@ -1,0 +1,52 @@
+# Dependencies and generated artifacts
+node_modules/
+dist/
+.astro/
+coverage/
+*.tsbuildinfo
+*.log
+.DS_Store
+
+# Local credentials and provider state
+.env
+.env.*
+!.env.example
+.dev.vars
+.dev.vars.*
+.wrangler/
+**/.wrangler/
+*.pem
+*.key
+*.p12
+*.pfx
+*credentials*.json
+*secrets*.json
+
+# Private/raw collection material must stay outside this public repository
+private/
+**/private/
+raw/
+**/raw/
+exports/
+**/exports/
+datasets/
+**/datasets/
+data/
+**/data/
+# The reviewed, generated public banks are intentionally versioned
+!src/lib/llmq/data/
+!src/lib/llmq/data/questions.json
+!src/lib/llmq/data/questions.zh-CN.json
+!src/lib/llmq/data/models.json
+submission*.json
+submission*.jsonl
+submission*.ndjson
+*export*.json
+*export*.jsonl
+*export*.ndjson
+*.csv
+*.sqlite
+*.sqlite3
+*.db
+*.db-shm
+*.db-wal
