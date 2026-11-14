@@ -1,11 +1,11 @@
 ---
-import { CONFIG } from '../../lib/llmq/config';
 import { quizStrings, type QuizLanguage } from '../../lib/llmq/strings';
 import '../../styles/llmq.css';
 interface Props {
-	language?: QuizLanguage;
+	language: QuizLanguage;
+	pagePath: string;
 }
-const { language = 'en' } = Astro.props;
+const { language, pagePath } = Astro.props;
 const strings = quizStrings(language);
 ---
 
@@ -15,8 +15,8 @@ const strings = quizStrings(language);
 	aria-label={strings.title}
 	data-lmti-app
 	data-lmti-language={language}
+	data-lmti-page-path={pagePath}
 >
-	{!CONFIG.PUBLISHED && <p class="lmti-ribbon">{strings.preview}</p>}
 	<p class="lmti-muted" data-lmti-counts hidden></p>
 	<div class="lmti-status" role="status" aria-live="polite" data-lmti-status></div>
 	<div data-lmti-screen></div>

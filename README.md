@@ -32,15 +32,18 @@ Tests use Node's built-in runner and `node:sqlite`; experimental-feature warning
 
 ## Stable integration boundaries
 
-- `src/components/llmq/Quiz.astro`: the reusable quiz component (`language="en"` or `language="zh-CN"`).
+- `src/module.ts`: pure `moduleMeta` (`id: 'llmq'`, supported languages and title/description derived from `quizStrings`), safe for host configuration imports without Astro, CSS or browser APIs.
+- `src/components/llmq/Quiz.astro`: the reusable quiz component with required `language` (`en` or `zh-CN`) and required `pagePath` (the host's localized absolute pathname). Text sharing and PNG exports use this path with the current origin; the module does not infer locale prefixes.
 - `src/lib/llmq/`: browser logic, strings, local model icons and public generated banks.
-- `src/styles/llmq.css`: unchanged quiz styling using `--sl-*` design tokens.
+- `src/styles/llmq.css`: scoped quiz styling using inherited `--sl-*` design tokens; publication banners belong to the host.
 - `src/styles/shell.css`: standalone light/dark tokens and responsive shell styles; the blog supplies its own existing Starlight tokens instead.
 - `src/pages/fun/llm-quiz/index.astro` and `src/pages/zh/fun/llm-quiz/index.astro`: stable routes; preserve both URLs when integrating.
 - `scripts/build-questions.mjs` and `scripts/validate-questions.mjs`: generate banks from the reviewed questionnaire Markdown under `docs/llmq/`.
 - `worker/`: existing submission-service implementation and operator documentation, **not a new service to create**.
 
 The parent blog should pin this repository as a submodule and import the component through that checked-out path, preserving the `components/llmq`, `lib/llmq` and `styles/llmq.css` relative structure. Keep the blog's route wrappers and theme outside the submodule. Advance the pinned commit deliberately after reviewing the relevant release; do not independently edit a second quiz source copy. The standalone app imports no files from the parent blog.
+
+The host owns publication status, cards, generated routes, sitemap, Pagefind, robots metadata and preview notices. The module has no publication switch or base-path configuration. Local route wrappers pass their fixed paths explicitly and use `noindex,nofollow`; they are development harnesses, not a second publication pipeline. `CONFIG` retains scoring/debug/service settings, including the unchanged production `SUBMIT_ENDPOINT`. The host integration branch starts from `v3.0.0`; it does not incorporate v3.1 questionnaire development.
 
 ## Production service: do not replace or re-bootstrap
 
@@ -54,6 +57,6 @@ Production CORS authorizes only `https://hyperbolica-dev.github.io`. Local devel
 
 ## Documentation and licensing
 
-The extracted `docs/llmq/` documents preserve the approved questionnaire, algorithm, calibration protocol and historical blog-integration/release context. References there to Starlight, Pagefind or blog cards describe that original integration; the standalone shell does not provide them. Current standalone commands and boundaries are documented above.
+The extracted `docs/llmq/` documents preserve the approved questionnaire, algorithm, calibration protocol and historical editorial context. `integration-notes.md` and `PUBLISH.md` describe the current source-module boundary; archived requests and editorial returns may describe superseded publication switches. Current standalone commands and boundaries are documented above.
 
 No new project-wide license has been selected. Public source visibility is not a grant of unrestricted reuse. The existing model-icon license and attribution remain in [`src/lib/llmq/icons/LICENSE`](src/lib/llmq/icons/LICENSE); that license applies to those assets, not automatically to the whole project. See [contribution guidance](CONTRIBUTING.md).

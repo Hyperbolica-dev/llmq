@@ -27,7 +27,6 @@ export const strings = {
 	tipKeys: 'Tip: press 1–{n}, then Enter',
 	betaFooter:
 		'Beta. Questions are still being refined. Model profiles are provisional. This is a snapshot of response style in this sitting, not psychology or an established cluster.',
-	preview: 'Preview, not published',
 	debugBanner: 'Debug on. Not for public.',
 	noScript: 'This quiz needs JavaScript.',
 	copied: 'Copied!',

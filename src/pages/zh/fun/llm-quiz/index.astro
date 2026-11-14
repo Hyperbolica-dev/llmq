@@ -1,11 +1,10 @@
 ---
 import Shell from '../../../../layouts/Shell.astro';
 import Quiz from '../../../../components/llmq/Quiz.astro';
-import { CONFIG } from '../../../../lib/llmq/config';
 import { quizStrings } from '../../../../lib/llmq/strings';
 const strings = quizStrings('zh-CN');
 ---
 
-<Shell title={strings.title} description={strings.subtitle} language="zh-CN" noindex={!CONFIG.PUBLISHED}>
-  <Quiz language="zh-CN" />
+<Shell title={strings.title} description={strings.subtitle} language="zh-CN" noindex>
+  <Quiz language="zh-CN" pagePath="/zh/fun/llm-quiz/" />
 </Shell>

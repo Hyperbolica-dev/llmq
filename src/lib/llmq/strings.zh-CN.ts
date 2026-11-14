@@ -39,7 +39,6 @@ export const strings: QuizStrings = {
 	tipKeys: '提示：按 1–{n} 选择，再按 Enter',
 	betaFooter:
 		'测试版。题目仍在完善，模型画像尚属暂定。这只是本次作答风格的快照，不是心理测量，也不是已确立的分类。',
-	preview: '预览，尚未发布',
 	debugBanner: '调试已开启，不用于公开展示。',
 	noScript: '此测试需要 JavaScript。',
 	copied: '已复制！',

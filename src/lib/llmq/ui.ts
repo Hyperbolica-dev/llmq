@@ -114,7 +114,7 @@ export function mountQuiz(app: HTMLElement) {
 				}
 			: sourceBank;
 	const storageKey = `lmti:v3:session:${language}`;
-	const quizPath = language === 'zh-CN' ? `/zh${CONFIG.BASE_PATH}` : CONFIG.BASE_PATH;
+	const quizPath = app.dataset.lmtiPagePath!;
 	const screen = app.querySelector<HTMLElement>('[data-lmti-screen]')!;
 	const status = app.querySelector<HTMLElement>('[data-lmti-status]')!;
 	const params = new URLSearchParams(location.search);

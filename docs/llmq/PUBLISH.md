@@ -1,15 +1,15 @@
 # Publishing the v3 quiz
 
-**Current status: owner-approved bilingual release candidate.** Apply Tanh's polished Chinese wording, align English and regenerate both banks before release. Preserve the archived editorial return and Chinese draft.
+**Current baseline: v3.0.0.** The shared Fun module integration changes source ownership and routing inputs, not questionnaire data, scoring, answer codes, package version or service identity. Archived editorial material is not a request to regenerate or revise this baseline.
 
 Authoritative copy: `01-questionnaire.md` (English), `QUESTIONNAIRE-v3.zh-CN.md` (complete editable Chinese counterpart). Exact game rules and mapping instructions: `ALGORITHM-v3.md`. Freeze both languages and the agent prompt before release; collect calibration only afterward.
 
 ## Parent integration and owner release checklist
-1. Run `npm run dev` and open `/fun/llm-quiz/?debug=1`. Both `/fun/` and `/zh/fun/` already contain cards; do not add another navigation item.
-2. Complete the human flow, reload/back navigation, and copy/paste an agent reply. Use debug autofill and JSON export to inspect scores. Confirm 24 bilingual items with matching metadata, four dislike items, Q8 numeric failure, and Q11/Q24 unscored U/T/S. Check LLMQ3 codes, v2 rejection, local dislike suppression, small-print counts and fixed agent mapping. Run `npm run quiz:data` only at parent integration, never in an editorial slice. Profile changes must match the reviewed batch in `CALIBRATION.md`; never relabel v2 samples.
-3. If collecting submissions, follow `worker/README.md`, deploy the Worker yourself, and set `SUBMIT_ENDPOINT` in `src/lib/llmq/config.ts`. Otherwise leave it empty and all submit UI stays hidden.
-4. Set `PUBLISHED: true` and `DEBUG_ENABLED: false` in that configuration. This removes the preview ribbon/robots exclusion, admits the route to sitemap and Pagefind, and ignores debug query parameters. Cards already exist by owner request.
-5. Run `npm test`, `npm run quality`, and `npm run build`. Deploy using the normal GitHub Pages workflow. No Worker deployment occurs in the site workflow.
+1. Run the local harness and open `/fun/llm-quiz/` and `/zh/fun/llm-quiz/`. The wrappers are explicitly `noindex,nofollow`; both pass a fixed localized `pagePath` and required `language` to `Quiz.astro`.
+2. Complete the human flow, reload/back navigation, prompt generation and reply import in both languages. Confirm text sharing and PNG exports link to the supplied host path. Verify existing LLMQ3 encoding and questionnaire behavior with local tests, without contacting production services.
+3. Keep the existing `SUBMIT_ENDPOINT`, Worker identity, storage bindings and data unchanged. Worker operations require separate owner authorization; a host integration or frontend release never implies service deployment, replacement, bootstrap or production test submissions.
+4. Keep `DEBUG_ENABLED: false` in `src/lib/llmq/config.ts`. The parent blog's `src/lib/fun/catalog.ts` owns `draft`/`preview`/`published`, card visibility, generated routes, sitemap and indexing. The host owns the preview banner; there is no module publication flag.
+5. Run module checks and the parent blog's quality checks at integration. Review and publish the module commit, then deliberately update the host submodule pin. Deploy only through the host's normal Pages workflow; module CI does not deploy a site or Worker.
 
 The question-to-position mapping ships in the browser bundle and can be inspected; this is acceptable for this project. Answers are not a security boundary. The Worker combines native per-location throttling with a durable global daily admission budget; see its README for bootstrap, recovery and hosting-quota limitations.
 
@@ -19,7 +19,7 @@ The question-to-position mapping ships in the browser bundle and can be inspecte
 
 ## Route changes
 
-`CONFIG.BASE_PATH` owns links and sitemap exclusion. Astro's route file must also move to the matching path if that setting changes. Keep deployed URLs stable.
+The host supplies the localized `pagePath`; sharing resolves it against `location.origin`. The local wrappers pass `/fun/llm-quiz/` and `/zh/fun/llm-quiz/`. The parent catalog preserves these same public URLs and owns sitemap policy. Keep deployed paths stable; module metadata IDs and titles are not URL configuration.
 
 ## Image export and questionnaire version
 
